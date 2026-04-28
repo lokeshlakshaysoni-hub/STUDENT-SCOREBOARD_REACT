@@ -1,140 +1,175 @@
-/* ===== Global Styles ===== */
+/* ===== Dark Theme Variables ===== */
+:root {
+  --bg-dark: #0f172a;
+  --card-bg: #1e293b;
+  --primary: #818cf8;
+  --accent: #22d3ee;
+  --text-main: #f1f5f9;
+  --text-muted: #94a3b8;
+  --border: rgba(255, 255, 255, 0.1);
+  --success: #4ade80;
+  --danger: #fb7185;
+  --neon-glow: 0 0 15px rgba(129, 140, 248, 0.4);
+}
+
+/* ===== Global Reset & Animation ===== */
 body {
   margin: 0;
-  padding: 0;
-  font-family: "Poppins", sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
+  padding: 20px;
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-dark);
+  background-image: 
+    radial-gradient(at 0% 0%, rgba(34, 211, 238, 0.1) 0px, transparent 50%),
+    radial-gradient(at 100% 100%, rgba(129, 140, 248, 0.1) 0px, transparent 50%);
+  color: var(--text-main);
   min-height: 100vh;
-}
-
-/* ===== Container ===== */
-.container {
-  width: 85%;
-  max-width: 900px;
-  margin: 40px auto;
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 15px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-/* ===== Header ===== */
-.header {
-  text-align: center;
-  padding: 15px;
-  border-radius: 12px;
-  background: linear-gradient(90deg, #ff7e5f, #feb47b);
-  color: white;
-  font-size: 24px;
-  font-weight: bold;
-  letter-spacing: 1px;
-}
-
-/* ===== Form ===== */
-.form {
   display: flex;
   justify-content: center;
-  gap: 10px;
-  margin-top: 25px;
+}
+
+/* ===== Animated Header Background ===== */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+/* ===== Glass Container ===== */
+.container {
+  width: 100%;
+  max-width: 850px;
+  padding: 40px;
+  background: var(--card-bg);
+  border-radius: 24px;
+  border: 1px solid var(--border);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(10px);
+}
+
+.header {
+  font-size: 32px;
+  font-weight: 800;
+  margin-bottom: 30px;
+  background: linear-gradient(-45deg, #818cf8, #22d3ee, #c084fc, #818cf8);
+  background-size: 300% 300%;
+  animation: gradientShift 5s ease infinite;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+}
+
+/* ===== Interactive Form ===== */
+.form {
+  display: grid;
+  grid-template-columns: 1fr 1fr auto;
+  gap: 12px;
+  margin-bottom: 40px;
 }
 
 .form input {
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  outline: none;
-  background: #f1f1f1;
-  transition: 0.3s;
+  background: #0f172a;
+  border: 1px solid var(--border);
+  color: white;
+  padding: 14px;
+  border-radius: 12px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .form input:focus {
-  background: #e0e0ff;
-  transform: scale(1.05);
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: var(--neon-glow);
+  transform: translateY(-2px);
 }
 
 .form button {
-  padding: 10px 15px;
-  border: none;
-  border-radius: 8px;
-  background: linear-gradient(90deg, #36d1dc, #5b86e5);
+  background: var(--primary);
   color: white;
-  font-weight: bold;
+  border: none;
+  padding: 0 25px;
+  border-radius: 12px;
+  font-weight: 700;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .form button:hover {
+  filter: brightness(1.1);
+  box-shadow: 0 0 20px rgba(129, 140, 248, 0.5);
   transform: scale(1.05);
-  opacity: 0.9;
 }
 
-/* ===== Table ===== */
+/* ===== Animated Table Rows ===== */
 .table {
   width: 100%;
-  border-collapse: collapse;
-  margin-top: 30px;
-  overflow: hidden;
-  border-radius: 10px;
+  border-collapse: separate;
+  border-spacing: 0 10px;
 }
 
 .table th {
-  background: linear-gradient(90deg, #36d1dc, #5b86e5);
-  color: white;
-  padding: 12px;
-}
-
-.table td {
+  color: var(--text-muted);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
   padding: 10px;
-  text-align: center;
-  background: #fafafa;
 }
 
-.table tr:nth-child(even) td {
-  background: #f0f4ff;
+.table tr td {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 18px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  transition: all 0.3s ease;
 }
 
+.table tr td:first-child { 
+  border-left: 1px solid var(--border);
+  border-radius: 16px 0 0 16px; 
+}
+.table tr td:last-child { 
+  border-right: 1px solid var(--border);
+  border-radius: 0 16px 16px 0; 
+}
+
+/* Floating Row Effect */
 .table tr:hover td {
-  background: #e6ecff;
-  transition: 0.3s;
+  background: rgba(255, 255, 255, 0.07);
+  border-color: var(--primary);
+  transform: translateY(-4px) scale(1.01);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ===== Score Input ===== */
 .table input {
-  width: 70px;
-  padding: 6px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+  background: #0f172a;
+  border: 1px solid var(--border);
+  color: var(--accent);
+  font-weight: bold;
+  border-radius: 8px;
+  padding: 5px;
+  width: 60px;
   text-align: center;
-  transition: 0.3s;
 }
 
-.table input:focus {
-  border-color: #5b86e5;
-  outline: none;
-  transform: scale(1.1);
-}
+/* ===== Status Badges ===== */
+.pass { color: var(--success); text-shadow: 0 0 10px rgba(74, 222, 128, 0.3); }
+.fail { color: var(--danger); text-shadow: 0 0 10px rgba(251, 113, 133, 0.3); }
 
-/* ===== Pass / Fail ===== */
-.pass {
-  color: #28a745;
-  font-weight: bold;
-}
-
-.fail {
-  color: #dc3545;
-  font-weight: bold;
-}
+/* ===== Delete Button Animation ===== */
 .delete-btn {
-  padding: 6px 10px;
-  background: #ff4d4d;
-  color: white;
-  border: none;
-  border-radius: 6px;
+  background: transparent;
+  border: 1px solid var(--danger);
+  color: var(--danger);
+  padding: 8px 14px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: all 0.3s;
 }
 
 .delete-btn:hover {
-  background: #e60000;
-  transform: scale(1.05);
+  background: var(--danger);
+  color: white;
+  box-shadow: 0 0 15px rgba(251, 113, 133, 0.4);
 }
